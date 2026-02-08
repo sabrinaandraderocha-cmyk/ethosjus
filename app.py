@@ -100,7 +100,7 @@ def _make_answer(title: str, bullets: List[str], delicate: bool = True) -> str:
     """
 
 # =====================================================
-# RESPOSTAS PRONTAS (DATABASE)
+# RESPOSTAS PRONTAS
 # =====================================================
 RESPOSTAS_DB: Dict[str, str] = {
     # --- Publicidade ---
@@ -160,7 +160,7 @@ RESPOSTAS_DB: Dict[str, str] = {
             "O foco deve ser conteúdo informativo e competência técnica."
         ]
     ),
-    "Posco usar Google Ads (Links Patrocinados)?": _make_answer(
+    "Posso usar Google Ads (Links Patrocinados)?": _make_answer(
         "Em regra, é admitido com moderação (Provimento 205/2021).",
         [
             "Mantenha caráter informativo e linguagem sóbria.",
@@ -193,7 +193,7 @@ RESPOSTAS_DB: Dict[str, str] = {
             "Compartilhe o mínimo necessário."
         ]
     ),
-    "Posco confirmar que a pessoa é minha cliente?": _make_answer(
+    "Posso confirmar que a pessoa é minha cliente?": _make_answer(
         "Evite — o próprio vínculo pode ser sensível.",
         [
             "Resposta padrão segura: ‘Não posso confirmar nem negar informações de atendimento/contratação’.",
@@ -208,7 +208,7 @@ RESPOSTAS_DB: Dict[str, str] = {
             "Defina política de acesso e retenção."
         ]
     ),
-    "Posco gravar reunião com cliente?": _make_answer(
+    "Posso gravar reunião com cliente?": _make_answer(
         "Boa prática: só com consentimento e finalidade definida.",
         [
             "Explique motivo e onde ficará armazenado.",
@@ -226,7 +226,7 @@ RESPOSTAS_DB: Dict[str, str] = {
             "Guarde assinado (inclusive eletrônico)."
         ]
     ),
-    "Posco cobrar consulta? Como formalizar?": _make_answer(
+    "Posso cobrar consulta? Como formalizar?": _make_answer(
         "Pode — e registre por escrito.",
         [
             "Informe valor e o que será entregue.",
@@ -250,14 +250,14 @@ RESPOSTAS_DB: Dict[str, str] = {
             "Proteja prazos e entregue documentos essenciais."
         ]
     ),
-    "Posco reter documentos por falta de pagamento?": _make_answer(
+    "Posso reter documentos por falta de pagamento?": _make_answer(
         "Evite — risco ético alto.",
         [
             "Cobrança deve ser feita por meios próprios, sem coação.",
             "Em dúvida, consulte o TED/OAB."
         ]
     ),
-    "Posco cobrar abaixo da tabela da OAB?": _make_answer(
+    "Posso cobrar abaixo da tabela da OAB?": _make_answer(
         "Cuidado com aviltamento.",
         [
             "Valores irrisórios podem caracterizar aviltamento e captação.",
@@ -265,7 +265,7 @@ RESPOSTAS_DB: Dict[str, str] = {
             "Mantenha dignidade e justificativa."
         ]
     ),
-    "Posco aceitar bens como pagamento?": _make_answer(
+    "Posso aceitar bens como pagamento?": _make_answer(
         "Em regra, sim — com cautela.",
         [
             "Registre no contrato e avalie compatibilidade do valor.",
@@ -275,7 +275,6 @@ RESPOSTAS_DB: Dict[str, str] = {
 }
 
 def generate_answer_for_question(q: str) -> str:
-    # Aceita pergunta do front mesmo que venha com espaços extras
     q = (q or "").strip()
     if q in RESPOSTAS_DB:
         return RESPOSTAS_DB[q]
@@ -328,6 +327,9 @@ def get_history(limit: int = 50):
     ).fetchall()
     conn.close()
     return [dict(r) for r in rows]
+
+# ✅ IMPORTANTE: garante DB mesmo no gunicorn/Render
+init_db()
 
 # =====================================================
 # CONTRATO (PRESTAÇÃO DE SERVIÇOS ADVOCATÍCIOS)
@@ -508,10 +510,8 @@ def contrato():
     return render_template("contrato.html", app_name=APP_NAME, contrato_txt=contrato_txt)
 
 # =====================================================
-# INIT
+# LOCAL DEV
 # =====================================================
 if __name__ == "__main__":
-    init_db()
-    # Render/produção usa PORT no ambiente
     port = int(os.environ.get("PORT", "5000"))
     app.run(host="0.0.0.0", port=port)
