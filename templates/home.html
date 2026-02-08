@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+  :root {
+    --bg-page: #f8f9fa;       
+    --bg-card: #ffffff;      
+    --text-main: #2c3e50;    
+    --text-muted: #6c757d;   
+    --accent: #0f52ba;       /* Azul Institucional */
+    --accent-oab: #D71920;   /* VERMELHO OAB (Cor oficial) */
+    --border-light: #e9ecef; 
+    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.05);
+  }
+
+  /* --- 1. AJUSTE DA LOGO (Sobrescrevendo o base.html) --- */
+  
+  /* Aumenta o container da marca */
+  .brand {
+    font-size: 1.5rem !important; /* Texto maior */
+    gap: 15px !important;
+  }
+
+  /* Aumenta o ícone (quadrado) e adiciona o detalhe OAB */
+  .logo-symbol {
+    width: 54px !important;    /* Bem maior */
+    height: 54px !important;   /* Bem maior */
+    font-size: 1.8rem !important;
+    border-radius: 12px !important;
+    background: #003552 !important; /* Azul escuro fundo */
+    
+    /* O TOQUE SUTIL DA OAB: Borda inferior vermelha */
+    border-bottom: 4px solid var(--accent-oab) !important; 
+    box-shadow: 0 4px 12px rgba(215, 25, 32, 0.15) !important; /* Sombra levemente avermelhada */
+  }
+
+  .brand-name {
+    color: #003552 !important;
+    letter-spacing: -0.5px !important;
+  }
+  
+  /* --- 2. RESTANTE DO ESTILO (CLEAN) --- */
+  body {
+    background-color: var(--bg-page) !important;
+    color: var(--text-main) !important;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 3.5rem 1rem 2.5rem;
+  }
+  .hero h1 {
+    color: #003552;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    font-size: 2.2rem;
+  }
+  .hero p.muted {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+  }
+
+  /* Aviso Importante */
+  .warning-box {
+    background-color: #fff8e1;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    border-left: 4px solid var(--accent-oab); /* Detalhe vermelho aqui também */
+    border-radius: 8px;
+    padding: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+    text-align: center;
+    font-size: 0.95rem;
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* Cards Containers */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 16px; 
+    padding: 2rem;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 2rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #003552;
+  }
+
+  .card-sub {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  /* Grid de Perguntas */
+  .quick-grid .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .mini-card {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Hover elegante */
+  .mini-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 20px rgba(15, 82, 186, 0.12);
+  }
+  
+  /* Bordinha colorida no topo do card ao passar o mouse */
+  .mini-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: left;
+  }
+  .mini-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .mini-top { margin-bottom: 15px; }
+
+  .mini-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text-main);
+    margin-bottom: auto;
+    line-height: 1.5;
+  }
+
+  .mini-tags {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .pill {
+    background-color: #f0f7ff;
+    color: #003552;
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* Modal (QA Box) */
+  .qa-modal {
+    display: none;
+    border-left: 5px solid var(--accent);
+    background-color: #f8fbff;
+    animation: slideDown 0.4s ease;
+  }
+  .qa-modal.open { display: block; }
+  
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .qa-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+
+  .btn-ghost {
+    background: white;
+    border: 1px solid var(--border-light);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-weight: 600;
+    transition: 0.2s;
+  }
+  .btn-ghost:hover {
+    background: #fff0f0;
+    color: var(--accent-oab);
+    border-color: #fadbd8;
+  }
+  
+  /* Conteúdo da Resposta HTML (vinda do Python) */
+  .resposta-humanizada ul { padding-left: 1.5rem; margin-top: 1rem; }
+  .resposta-humanizada li { margin-bottom: 0.8rem; color: #444; }
+  .resposta-humanizada h3 { color: #003552; margin-bottom: 1rem; font-size: 1.2rem; }
+  
+  /* Ajuste no alerta dentro da resposta */
+  .alert-box.warning {
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-left-width: 4px;
+  }
+
+</style>
+
+<div class="hero">
+  <h1>Código de Ética de Bolso</h1>
+  <p class="muted">
+    Respostas rápidas, orientação prática e acesso direto às normas da advocacia.
+  </p>
+</div>
+
+<div class="warning-box">
+  <strong>⚠️ Aviso importante:</strong>
+  O <strong>EthosJus</strong> é uma ferramenta informacional e orientativa.  
+  Não substitui análise jurídica, parecer profissional ou consulta ao TED/OAB.
+</div>
+
+<section id="qaBox" class="card qa-modal">
+  <div class="qa-header">
+    <div>
+      <div class="qa-title" id="qaTitle">Pergunta</div>
+      <div class="qa-sub">Guia orientativo — sempre avalie o caso concreto.</div>
+    </div>
+    <button class="btn btn-ghost" type="button" onclick="closeQA()">Fechar</button>
+  </div>
+  <div id="qaBody" class="qa-body"></div>
+</section>
+
+<div class="grid-container">
+  <section class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Perguntas Frequentes</div>
+        <div class="card-sub">
+          Clique no card para ver a orientação ética.
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-grid">
+      <div class="grid">
+        {% for q in questions %}
+          <div class="mini-card" onclick="openQA('{{ q.text }}')">
+            
+            <div class="mini-top">
+              <span class="pill">{{ q.tag }}</span>
+            </div>
+
+            <div class="mini-title">
+              {{ q.text }}
+            </div>
+
+            <div class="mini-tags">
+              Ver resposta &rarr;
+            </div>
+
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+function openQA(question){
+  const box = document.getElementById("qaBox");
+  const title = document.getElementById("qaTitle");
+  const body = document.getElementById("qaBody");
+  
+  // Abre o modal e mostra loading
+  box.classList.add("open");
+  title.innerText = "Consultando...";
+  body.innerHTML = '<div style="padding:40px; text-align:center; color:#999;">Buscando orientação...</div>';
+  
+  // Scroll suave
+  box.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  // Busca dados do Python
+  fetch("/qa?q=" + encodeURIComponent(question))
+    .then(res => res.json())
+    .then(data => {
+      title.innerText = data.question;
+      body.innerHTML = data.answer_html;
+    })
+    .catch(err => {
+      title.innerText = "Erro";
+      body.innerHTML = "Não foi possível carregar a resposta. Tente novamente.";
+    });
+}
+
+function closeQA(){
+  document.getElementById("qaBox").classList.remove("open");
+}
+</script>
+
+{% endblock %}

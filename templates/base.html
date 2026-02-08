@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>{{ app_name }}</title>
+
+  <!-- SEO básico -->
+  <meta name="description" content="EthosJus — código de ética de bolso do advogado. Ferramenta informacional para decisões profissionais seguras." />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+
+      <a href="{{ url_for('home') }}" class="brand">
+        <div class="logo-symbol">⚖️</div>
+
+        <div class="brand-text">
+          <div class="brand-name">{{ app_name }}</div>
+          <div class="brand-sub">Código de ética de bolso do advogado</div>
+        </div>
+      </a>
+
+      <nav class="nav">
+        <a href="{{ url_for('home') }}"
+           class="{% if request.endpoint == 'home' %}active{% endif %}">
+           Início
+        </a>
+
+        <a href="{{ url_for('contrato') }}"
+           class="{% if request.endpoint == 'contrato' %}active{% endif %}">
+           Gerar contrato
+        </a>
+
+        <a href="{{ url_for('recursos') }}"
+           class="{% if request.endpoint == 'recursos' %}active{% endif %}">
+           Recursos oficiais
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container">
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-stack">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+
+      <div>
+        <strong>EthosJus</strong> © {{ 2026 }}
+      </div>
+
+      <div>
+        Ferramenta informacional e orientativa.  
+        Não substitui o Código de Ética, legislação ou análise jurídica.
+      </div>
+
+    </div>
+  </footer>
+
+
+<!-- =========================================
+SCRIPT QA GLOBAL (abre respostas rápidas)
+========================================= -->
+
+<script>
+
+async function openQA(q){
+
+  try{
+
+    const res = await fetch(`/qa?q=${encodeURIComponent(q)}`);
+    const data = await res.json();
+
+    if(!data.ok) return;
+
+    const box = document.getElementById("qaBox");
+    const title = document.getElementById("qaTitle");
+    const body = document.getElementById("qaBody");
+
+    title.textContent = data.question;
+    body.innerHTML = data.answer_html;
+
+    box.classList.add("open");
+
+    window.scrollTo({
+      top: box.offsetTop - 80,
+      behavior: "smooth"
+    });
+
+  }catch(e){
+    console.error("Erro ao abrir QA:", e);
+  }
+
+}
+
+function closeQA(){
+  document.getElementById("qaBox").classList.remove("open");
+}
+
+</script>
+
+</body>
+</html>

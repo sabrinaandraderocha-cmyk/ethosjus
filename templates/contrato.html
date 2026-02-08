@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="hero">
+  <h1>Contrato de prestação de serviços advocatícios</h1>
+  <p class="muted">Modelo informacional. Ajuste conforme o caso, regras aplicáveis e praxe profissional.</p>
+</div>
+
+<section class="card">
+  <div class="card-header">
+    <div>
+      <div class="card-title">Preencha os dados</div>
+      <div class="card-sub">Gere um texto base e baixe em DOCX para editar e finalizar.</div>
+    </div>
+    <span class="pill">Ferramenta</span>
+  </div>
+
+  <form method="POST" class="form">
+    <div class="grid">
+      <div class="mini-card">
+        <div class="form-row">
+          <div class="label">Contratante</div>
+          <input class="input" name="contratante" placeholder="Nome do cliente (ou empresa)" />
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <div class="form-row">
+          <div class="label">Contratado(a)</div>
+          <input class="input" name="contratado" placeholder="Seu nome / sociedade" />
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <div class="form-row">
+          <div class="label">OAB</div>
+          <input class="input" name="oab" placeholder="OAB/UF nº" />
+        </div>
+      </div>
+
+      <div class="mini-card">
+        <div class="form-row">
+          <div class="label">Foro</div>
+          <input class="input" name="foro" placeholder="Comarca/UF" />
+        </div>
+      </div>
+    </div>
+
+    <div class="mini-card">
+      <div class="form-row">
+        <div class="label">Objeto</div>
+        <textarea class="input textarea" name="objeto" rows="3" placeholder="Ex.: Patrocínio de ação X, consultoria contratual, defesa em processo administrativo..."></textarea>
+      </div>
+    </div>
+
+    <div class="mini-card">
+      <div class="form-row">
+        <div class="label">Honorários</div>
+        <textarea class="input textarea" name="honorarios" rows="2" placeholder="Ex.: R$ X fixo + Y% êxito; ou R$ X mensal; ou por etapa..."></textarea>
+      </div>
+    </div>
+
+    <div class="mini-card">
+      <div class="form-row">
+        <div class="label">Despesas e custas</div>
+        <textarea class="input textarea" name="despesas" rows="2" placeholder="Ex.: custas e despesas por conta do contratante, com reembolso mediante comprovação..."></textarea>
+      </div>
+    </div>
+
+    <div class="mini-card">
+      <div class="form-row">
+        <div class="label">Comunicação</div>
+        <input class="input" name="comunicacao" placeholder="WhatsApp / E-mail / Telefone (canal preferencial)" />
+      </div>
+    </div>
+
+    <div class="mini-card">
+      <div class="form-row">
+        <div class="label">Rescisão</div>
+        <textarea class="input textarea" name="rescisao" rows="2" placeholder="Ex.: rescisão a qualquer tempo, com acerto proporcional pelo trabalho realizado e entrega de documentos essenciais..."></textarea>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-action" type="submit">Gerar contrato</button>
+      <a class="btn btn-ghost" href="{{ url_for('home') }}">Voltar</a>
+    </div>
+  </form>
+</section>
+
+{% if contrato_txt %}
+<section class="card">
+  <div class="card-header">
+    <div>
+      <div class="card-title">Contrato gerado</div>
+      <div class="card-sub">Revise, ajuste e baixe em DOCX.</div>
+    </div>
+    <span class="pill">DOCX</span>
+  </div>
+
+  <form method="POST" action="{{ url_for('download_docx') }}" class="form">
+    <input type="hidden" name="doc_title" value="Contrato de Prestação de Serviços Advocatícios" />
+    <input type="hidden" name="doc_filename" value="contrato_servicos_advocaticios" />
+
+    <div class="form-row">
+      <div class="label">Texto</div>
+      <textarea class="input textarea" name="doc_text" rows="18">{{ contrato_txt }}</textarea>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-action" type="submit">Baixar DOCX</button>
+      <a class="btn btn-ghost" href="{{ url_for('contrato') }}">Gerar outro</a>
+    </div>
+  </form>
+</section>
+{% endif %}
+
+{% endblock %}

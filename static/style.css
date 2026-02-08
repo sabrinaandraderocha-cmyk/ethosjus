@@ -1,0 +1,368 @@
+:root {
+  /* --- PALETA CLEAN (LIGHT MODE) --- */
+  
+  /* Cores Principais */
+  --bg-body: #f4f6f9;        /* Fundo da página (cinza gelo) */
+  --bg-card: #ffffff;        /* Fundo dos cards (branco puro) */
+  
+  /* Textos */
+  --text-main: #1a202c;      /* Quase preto (para leitura) */
+  --text-muted: #64748b;     /* Cinza médio (legendas) */
+  
+  /* Cores da Marca (Inspirado na OAB/Direito) */
+  --brand-navy: #003552;     /* Azul OAB Escuro */
+  --brand-blue: #0b4a6d;     /* Azul Médio */
+  --accent: #2563eb;         /* Azul vibrante para links/destaques */
+  
+  /* Bordas e Sombras */
+  --border-color: #e2e8f0;   /* Cinza claro para divisórias */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* Raios de borda */
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-body);
+  /* Removemos o gradiente escuro e deixamos flat */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- LAYOUT --- */
+.container {
+  width: min(1000px, 92vw);
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.muted { color: var(--text-muted); }
+
+/* --- TOPBAR (Cabeçalho) --- */
+.topbar {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: var(--shadow-sm);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  width: min(1000px, 92vw);
+  margin: 0 auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--brand-navy);
+}
+
+.logo-symbol {
+  width: 40px;
+  height: 40px;
+  background: var(--brand-navy);
+  color: white;
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.brand-name {
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.5px;
+}
+
+.brand-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Menu de Navegação */
+.nav {
+  display: flex;
+  gap: 15px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.nav a:hover {
+  color: var(--brand-blue);
+}
+
+/* --- HERO SECTION --- */
+.hero {
+  text-align: center;
+  padding: 40px 20px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  color: var(--brand-navy);
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- AVISOS (Warning Box) --- */
+.warning-box {
+  background: #fff8dc; /* Amarelo bem claro */
+  border: 1px solid #f0e68c;
+  border-radius: var(--radius);
+  padding: 16px;
+  color: #7b5e05;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.warning-title {
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* --- CARDS E SEÇÕES --- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+}
+
+/* --- GRID DE PERGUNTAS (Mini Cards) --- */
+.quick-grid .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.mini-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 140px;
+}
+
+.mini-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+
+.mini-top {
+  margin-bottom: 12px;
+}
+
+.pill {
+  background: #e0f2fe; /* Azulzinho claro */
+  color: #0369a1;      /* Azul escuro */
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.mini-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-main);
+  line-height: 1.4;
+  margin-bottom: auto;
+}
+
+.mini-tags {
+  margin-top: 15px;
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* --- MODAL DE RESPOSTA (QA Box) --- */
+.qa-modal {
+  display: none; /* Escondido por padrão */
+  background: #f8fafc; /* Cinza muito leve */
+  border-left: 5px solid var(--brand-blue);
+  animation: slideIn 0.3s ease-out;
+}
+
+.qa-modal.open {
+  display: block;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.qa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.qa-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+}
+
+/* Botões */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-ghost:hover {
+  background: #f1f5f9;
+  color: var(--text-main);
+  border-color: #cbd5e1;
+}
+
+/* --- CONTEÚDO DA RESPOSTA (HTML Gerado) --- */
+.resposta-humanizada h3 {
+  font-size: 1.2rem;
+  color: var(--brand-blue);
+  margin-bottom: 15px;
+}
+
+.resposta-humanizada ul {
+  padding-left: 20px;
+}
+
+.resposta-humanizada li {
+  margin-bottom: 8px;
+  color: #334155; /* Cinza escuro */
+}
+
+.alert-box.warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+/* --- FORMULÁRIOS (Caso use na página de Contrato) --- */
+.input, .textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--text-main);
+  outline: none;
+  font-family: inherit;
+}
+
+.input:focus, .textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.btn-action {
+  background: var(--brand-blue);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-action:hover {
+  background: var(--brand-navy);
+}
+
+/* --- FOOTER --- */
+.footer {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border-color);
+  margin-top: 40px;
+}
+
+/* --- RESPONSIVO --- */
+@media (max-width: 600px) {
+  .topbar-inner {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+}

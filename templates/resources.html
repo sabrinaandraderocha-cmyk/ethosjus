@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  /* --- ESTILOS ESPECÍFICOS PARA RECURSOS --- */
+  .hero-resources {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+  }
+  .hero-resources h1 {
+    color: #003552; /* Azul OAB */
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+  }
+
+  /* Grid de Cards */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  /* O Card Individual */
+  .resource-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Efeito Hover elegante */
+  .resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(15, 82, 186, 0.1);
+    border-color: #0f52ba;
+  }
+
+  /* Ícone no topo do card */
+  .resource-icon {
+    width: 48px;
+    height: 48px;
+    background: #f0f4ff;
+    color: #0f52ba;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .resource-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+  }
+
+  .resource-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .resource-desc {
+    color: #6c757d;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+  }
+
+  /* Link de ação */
+  .resource-link {
+    color: #0f52ba;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s;
+  }
+  .resource-link:hover {
+    gap: 10px; /* Efeito de seta andando */
+    text-decoration: underline;
+  }
+
+  /* Dica Prática */
+  .tip-box {
+    margin-top: 3rem;
+    background: #fff8e1; /* Amarelo suave */
+    border: 1px solid #ffeeba;
+    border-left: 4px solid #D71920; /* Vermelho OAB */
+    padding: 1.2rem;
+    border-radius: 8px;
+    color: #856404;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+</style>
+
+<div class="hero-resources">
+  <h1>Recursos Oficiais</h1>
+  <p class="muted">Links para consulta direta nas fontes oficiais (OAB e Planalto).</p>
+</div>
+
+<section class="card" style="border:none; box-shadow:none; background:transparent;">
+  
+  <div class="card-header" style="background: #fff; padding: 1.5rem; border-radius: 12px; border: 1px solid #e9ecef;">
+    <div>
+      <div class="card-title">Fontes Confiáveis</div>
+      <div class="card-sub">Quando a dúvida for sensível, confira a letra da lei.</div>
+    </div>
+    <span class="pill" style="background:#e3f2fd; color:#0d47a1; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">Documentação Oficial</span>
+  </div>
+
+  <div class="resources-grid">
+    
+    <div class="resource-card">
+      <div class="resource-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      </div>
+      <div class="resource-title">Código de Ética e Disciplina da OAB</div>
+      <div class="resource-desc">Texto oficial em PDF. Base para conduta, deveres e infrações disciplinares.</div>
+      <a class="resource-link" href="{{ links.codigo_etica_oab_pdf }}" target="_blank">
+        Abrir documento <span>&rarr;</span>
+      </a>
+    </div>
+
+    <div class="resource-card">
+      <div class="resource-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+        </svg>
+      </div>
+      <div class="resource-title">Provimento 205/2021 (Marketing Jurídico)</div>
+      <div class="resource-desc">Regras modernas sobre publicidade, impulsionamento e redes sociais.</div>
+      <a class="resource-link" href="{{ links.provimento_205_2021 }}" target="_blank">
+        Abrir documento <span>&rarr;</span>
+      </a>
+    </div>
+
+    <div class="resource-card">
+      <div class="resource-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+        </svg>
+      </div>
+      <div class="resource-title">Estatuto da Advocacia (Lei 8.906/94)</div>
+      <div class="resource-desc">Lei federal que define prerrogativas, direitos e estrutura da OAB.</div>
+      <a class="resource-link" href="{{ links.estatuto_oab_8906 }}" target="_blank">
+        Abrir documento <span>&rarr;</span>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="tip-box">
+    <div style="font-size: 1.5rem;">💡</div>
+    <div>
+      <strong>Dica prática:</strong><br>
+      Se a dúvida for sobre <em>posts</em> e redes sociais, comece sempre pelo <strong>Provimento 205/2021</strong>.
+    </div>
+  </div>
+</section>
+
+{% endblock %}
